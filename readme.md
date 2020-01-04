@@ -85,6 +85,7 @@ docker volume 机制，允许你将宿主机上指定的目录或者文件，挂
 ![volumebind.png](volumebind.png)
 
 ## k8s component
+
 ![k8scomponent.png](k8scomponent.png)
 控制节点，即 Master 节点，由三个紧密协作的独立组件组合而成，它们分别是负责 API 服务的 kube-apiserver、负责调度的 kube-scheduler，以及负责容器编排的 kube-controller-manager。整个集群的持久化数据，则由 kube-apiserver 处理后保存在 Etcd 中。  
 
@@ -499,8 +500,7 @@ kube-proxy 就会通过 Linux 的 IPVS 模块，为这个 IP 地址设置三个 
 
 而第三种方式，是 Kubernetes 在 1.7 之后支持的一个新特性，叫作 ExternalName。
 
-```json
-
+```yaml
 kind: Service
 apiVersion: v1
 metadata:
@@ -518,6 +518,6 @@ spec:
 ## ingress
 
 对于LoadBalancer 类型的 Service，它会为你在 Cloud Provider（比如：Google Cloud 或者 OpenStack）里创建一个与该 Service 对应的负载均衡服务。
-由于每个 Service 都要有一个负载均衡服务，所以这个做法实际上既浪费成本又高。作为用户，我其实更希望看到 Kubernetes 为我内置一个全局的负载均衡器。然后，通过我访问的 URL，把请求转发给不同的后端 Service。这种全局的、为了代理不同后端 Service 而设置的负载均衡服务，就是 Kubernetes 里的 Ingress 服务。所以，Ingress 的功能其实很容易理解：所谓 Ingress，就是 Service 的“Service”。 
+由于每个 Service 都要有一个负载均衡服务，所以这个做法实际上既浪费成本又高。作为用户，我其实更希望看到 Kubernetes 为我内置一个全局的负载均衡器。然后，通过我访问的 URL，把请求转发给不同的后端 Service。这种全局的、为了代理不同后端 Service 而设置的负载均衡服务，就是 Kubernetes 里的 Ingress 服务。所以，Ingress 的功能其实很容易理解：所谓 Ingress，就是 Service 的“Service”。  
 
 能使用 Kubernetes 的 Ingress 来创建一个统一的负载均衡器，从而实现当用户访问不同的域名时，能够访问到不同的 Deployment  
